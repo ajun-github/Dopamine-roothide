@@ -16,6 +16,7 @@
 @property (nonatomic) UIImageView *backgroundImageView;
 @property (nonatomic) DOMainViewController *mainView;
 @property (nonatomic) DOModalBackAction *backAction;
+@property (nonatomic) BOOL backgroundDimmed;
 
 @end
 
@@ -33,15 +34,20 @@
     [self pushViewController:(self.mainView = [[DOMainViewController alloc] init]) animated:NO];
     [self setDelegate:self];
     [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundDidChange:) name:DOThemeBackgroundDidChangeNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupBackground
 {
-    DOTheme *theme = [[DOThemeManager sharedInstance] enabledTheme];
-    
     self.view.backgroundColor = [UIColor blackColor];
     self.backgroundImageView = [[UIImageView alloc] init];
-    self.backgroundImageView.image = [theme image];
+    self.backgroundImageView.image = [[DOThemeManager sharedInstance] currentBackgroundImage];
     self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.backgroundImageView.userInteractionEnabled = NO;
@@ -55,6 +61,8 @@
         [self.backgroundImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:-100],
         [self.backgroundImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:100],
     ]];
+
+    [self updateBackgroundAlphaAnimated:NO];
 
     self.backAction = [[DOModalBackAction alloc] initWithAction:^{
         [self popViewControllerAnimated:YES];
@@ -72,11 +80,31 @@
     ]];
 }
 
+- (void)updateBackgroundAlphaAnimated:(BOOL)animated
+{
+    CGFloat opacity = [[DOThemeManager sharedInstance] backgroundOpacity];
+    CGFloat alpha = opacity * (self.backgroundDimmed ? 0.4 : 1.0);
+
+    if (animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backgroundImageView.alpha = alpha;
+        }];
+    }
+    else {
+        self.backgroundImageView.alpha = alpha;
+    }
+}
+
+- (void)backgroundDidChange:(NSNotification *)notification
+{
+    self.backgroundImageView.image = [[DOThemeManager sharedInstance] currentBackgroundImage];
+    [self updateBackgroundAlphaAnimated:NO];
+}
+
 - (void)setBackgroundDimmed:(BOOL)dimmed
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        self.backgroundImageView.alpha = dimmed ? 0.4 : 1;
-    }];
+    self.backgroundDimmed = dimmed;
+    [self updateBackgroundAlphaAnimated:YES];
     self.backgroundImageView.userInteractionEnabled = dimmed;
     self.backAction.hidden = !dimmed;
 }
