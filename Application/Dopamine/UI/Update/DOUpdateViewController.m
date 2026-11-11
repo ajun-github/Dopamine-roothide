@@ -60,13 +60,13 @@
     self.changelogSuperview.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.changelog = [[UITextView alloc] init];
-    self.changelog.font = [UIFont systemFontOfSize:16];
+    self.changelog.font = [UIFont systemFontOfSize:17];
     self.changelog.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
     self.changelog.backgroundColor = [UIColor clearColor];
     self.changelog.translatesAutoresizingMaskIntoConstraints = NO;
     self.changelog.editable = NO;
     self.changelog.textAlignment = NSTextAlignmentCenter;
-    self.changelog.alpha = 0.7;
+    self.changelog.alpha = 0.85;
 
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentCenter;
@@ -149,7 +149,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.button.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [self.button.heightAnchor constraintEqualToConstant:30],
+        [self.button.heightAnchor constraintEqualToConstant:44],
         [self.button.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20]
     ]];
 
@@ -195,7 +195,7 @@
 
         NSMutableAttributedString *markdownStringMut = [[NSAttributedString alloc] initWithMarkdownString:body options:parsingOptions baseURL:nil error:nil].mutableCopy;
         
-        [markdownStringMut addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16], NSForegroundColorAttributeName : [UIColor whiteColor], NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, markdownStringMut.length)];
+        [markdownStringMut addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17], NSForegroundColorAttributeName : [UIColor whiteColor], NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, markdownStringMut.length)];
 
         [changelogText appendAttributedString:markdownStringMut];
         

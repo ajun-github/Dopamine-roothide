@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DOPSListController : PSListController
 
 + (void)setupViewControllerStyle:(UIViewController*)vc;
++ (void)enlargeLabelsInCell:(UITableViewCell *)cell;
 
 @end
 

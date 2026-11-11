@@ -35,7 +35,7 @@
         [header.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:5],
         [header.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [header.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [header.heightAnchor constraintEqualToConstant:70]
+        [header.heightAnchor constraintEqualToConstant:84]
     ]]; 
     
     self.scrollView = [[UIScrollView alloc] init];
@@ -47,7 +47,7 @@
         [self.scrollView.topAnchor constraintEqualToAnchor:header.bottomAnchor],
         [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:25],
         [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.scrollView.heightAnchor constraintEqualToConstant:30]
+        [self.scrollView.heightAnchor constraintEqualToConstant:44]
     ]];
 
     [self setupLicenseButtons];
@@ -65,7 +65,7 @@
     ]];
 
     self.license.editable = NO;
-    self.license.font = [UIFont systemFontOfSize:14];
+    self.license.font = [UIFont systemFontOfSize:17];
     self.license.textColor = [UIColor whiteColor];
     self.license.backgroundColor = [UIColor clearColor];
     self.selectedLicense = 0;
@@ -153,7 +153,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:license[@"name"] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+        button.titleLabel.font = [UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
         button.backgroundColor = [UIColor whiteColor];
         button.layer.cornerRadius = 8;
         button.layer.cornerCurve = kCACornerCurveContinuous;
@@ -164,15 +164,15 @@
 
         NSString *buttonTitle = license[@"name"];
         CGSize textSize = [buttonTitle sizeWithAttributes:@{NSFontAttributeName: button.titleLabel.font}];
-        CGFloat buttonWidth = textSize.width + 20;
+        CGFloat buttonWidth = textSize.width + 28;
         
         BOOL isFirst = self.scrollView.leadingAnchor == lastAnchor;
 
         [NSLayoutConstraint activateConstraints: @[
             [button.centerYAnchor constraintEqualToAnchor:self.scrollView.centerYAnchor],
-            [button.heightAnchor constraintEqualToConstant:30],
+            [button.heightAnchor constraintEqualToConstant:40],
             [button.widthAnchor constraintEqualToConstant:buttonWidth],
-            [button.leadingAnchor constraintEqualToAnchor:lastAnchor constant:isFirst ? 0 : 5]
+            [button.leadingAnchor constraintEqualToAnchor:lastAnchor constant:isFirst ? 0 : 8]
         ]];
         
         lastAnchor = button.trailingAnchor;

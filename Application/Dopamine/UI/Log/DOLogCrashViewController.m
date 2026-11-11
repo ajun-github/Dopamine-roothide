@@ -42,7 +42,7 @@
         [header.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:5],
         [header.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [header.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [header.heightAnchor constraintEqualToConstant:70]
+        [header.heightAnchor constraintEqualToConstant:84]
     ]];
     
     __block DOActionMenuButton *shareButton;
@@ -56,7 +56,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [shareButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [shareButton.heightAnchor constraintEqualToConstant:30],
+        [shareButton.heightAnchor constraintEqualToConstant:44],
         [shareButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-30]
     ]];
     
@@ -80,7 +80,7 @@
     NSArray *reverseLog = [[[DOUIManager sharedInstance] logRecord] reverseObjectEnumerator].allObjects;
     _logView.text = [reverseLog componentsJoinedByString:@"\n"];
     _logView.editable = NO;
-    _logView.font = [UIFont systemFontOfSize:14];
+    _logView.font = [UIFont monospacedSystemFontOfSize:15 weight:UIFontWeightRegular];
     _logView.textColor = [UIColor whiteColor];
     _logView.backgroundColor = [UIColor clearColor];
 }

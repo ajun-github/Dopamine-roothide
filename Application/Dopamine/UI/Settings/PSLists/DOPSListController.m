@@ -48,7 +48,7 @@
 
 // A bigger, easier to read list: the Preferences cells keep their stock fonts,
 // so they are scaled up here once they are about to be displayed.
-- (void)enlargeLabelsInCell:(UITableViewCell *)cell
++ (void)enlargeLabelsInCell:(UITableViewCell *)cell
 {
     if ([cell isKindOfClass:[DOButtonCell class]] ||
         [cell isKindOfClass:[DOHeaderCell class]] ||
@@ -77,7 +77,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.backgroundColor = [UIColor clearColor];
-    [self enlargeLabelsInCell:cell];
+    [DOPSListController enlargeLabelsInCell:cell];
 }
 
 - (void)viewDidLayoutSubviews {

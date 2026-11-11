@@ -26,11 +26,11 @@
 
 + (UIView *)makeHeader:(NSString *)title withTarget:(id)target
 {
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 70)];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 84)];
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 60)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 74)];
     label.text = title;
-    label.font = [UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
+    label.font = [UIFont systemFontOfSize:21 weight:UIFontWeightSemibold];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -41,7 +41,7 @@
     border.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.1];
     [header addSubview:border];
 
-    UIImage *backImage = [UIImage systemImageNamed:@"chevron.left" withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:20 weight:UIImageSymbolWeightMedium]];
+    UIImage *backImage = [UIImage systemImageNamed:@"chevron.left" withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:24 weight:UIImageSymbolWeightMedium]];
     backImage = [backImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:backImage forState:UIControlStateNormal];
@@ -63,10 +63,10 @@
     ]];
 
     [NSLayoutConstraint activateConstraints:@[
-        [backButton.leadingAnchor constraintEqualToAnchor:header.leadingAnchor constant:10],
-        [backButton.centerYAnchor constraintEqualToAnchor:header.centerYAnchor constant:-7],
-        [backButton.widthAnchor constraintEqualToConstant:30],
-        [backButton.heightAnchor constraintEqualToConstant:30]
+        [backButton.leadingAnchor constraintEqualToAnchor:header.leadingAnchor constant:8],
+        [backButton.centerYAnchor constraintEqualToAnchor:header.centerYAnchor constant:-6],
+        [backButton.widthAnchor constraintEqualToConstant:44],
+        [backButton.heightAnchor constraintEqualToConstant:44]
     ]];
 
     return header;
@@ -78,11 +78,12 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.backgroundColor = [UIColor clearColor];
+    [DOPSListController enlargeLabelsInCell:cell];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    _table.frame = CGRectMake(12, 5, self.view.bounds.size.width - 24, self.view.bounds.size.height - 10);
+    _table.frame = CGRectMake(14, 8, self.view.bounds.size.width - 28, self.view.bounds.size.height - 16);
 }
 
 #pragma mark - Status Bar
