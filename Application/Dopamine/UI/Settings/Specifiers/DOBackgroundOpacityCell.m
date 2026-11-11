@@ -26,13 +26,13 @@
 
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.text = [specifier propertyForKey:@"title"] ?: [specifier name];
-        titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+        titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:titleLabel];
 
         self.valueLabel = [[UILabel alloc] init];
-        self.valueLabel.font = [UIFont monospacedDigitSystemFontOfSize:13 weight:UIFontWeightRegular];
+        self.valueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16 weight:UIFontWeightMedium];
         self.valueLabel.textColor = [UIColor colorWithWhite:1 alpha:0.6];
         self.valueLabel.textAlignment = NSTextAlignmentRight;
         self.valueLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -50,14 +50,14 @@
 
         [NSLayoutConstraint activateConstraints:@[
             [titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
-            [titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:10],
+            [titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:16],
             [self.valueLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-20],
             [self.valueLabel.centerYAnchor constraintEqualToAnchor:titleLabel.centerYAnchor],
             [self.valueLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:titleLabel.trailingAnchor constant:8],
             [self.slider.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
             [self.slider.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-20],
-            [self.slider.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:4],
-            [self.slider.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-6],
+            [self.slider.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:10],
+            [self.slider.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-12],
         ]];
 
         self.slider.value = [[DOThemeManager sharedInstance] backgroundOpacity];

@@ -17,10 +17,7 @@
 {
     if (self = [super init])
     {
-        self.backgroundColor = [DOThemeManager menuColorWithAlpha:1.0];
-        self.layer.cornerRadius = 14;
-        self.layer.masksToBounds = YES;
-        self.layer.cornerCurve = kCACornerCurveContinuous;
+        [DOGlobalAppearance applyLiquidGlassToView:self cornerRadius:UI_GLASS_CORNER_RADIUS tintColor:[DOThemeManager menuColorWithAlpha:1.0]];
         self.translatesAutoresizingMaskIntoConstraints = NO;
 
         self.button = [DOActionMenuButton buttonWithAction:actions chevron:NO];
@@ -148,7 +145,7 @@
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.text = DOLocalizedString(@"Status_Title_Jailbreaking");
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
+    titleLabel.font = [UIFont systemFontOfSize:22 weight:UIFontWeightSemibold];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.alpha = 0.0;
     [self addSubview:titleLabel];

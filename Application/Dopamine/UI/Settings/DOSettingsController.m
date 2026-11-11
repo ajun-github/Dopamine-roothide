@@ -21,6 +21,7 @@
 #import "DOPSJetsamListItemsController.h"
 #import "DOButtonCell.h"
 #import "DOBackgroundOpacityCell.h"
+#import "DOGlobalAppearance.h"
 
 typedef NS_ENUM(NSInteger, DOImagePickerPurpose) {
     DOImagePickerPurposeBootLogo,
@@ -164,7 +165,7 @@ typedef NS_ENUM(NSInteger, DOImagePickerPurpose) {
         DOEnvironmentManager *envManager = [DOEnvironmentManager sharedManager];
         DOExploitManager *exploitManager = [DOExploitManager sharedManager];
 
-        NSNumber *buttonHeight = @(44);
+        NSNumber *buttonHeight = @(58);
         
         SEL defGetter = @selector(readPreferenceValue:);
         SEL defSetter = @selector(setPreferenceValue:specifier:);
@@ -405,7 +406,7 @@ typedef NS_ENUM(NSInteger, DOImagePickerPurpose) {
         _backgroundOpacitySpecifier = [PSSpecifier preferenceSpecifierNamed:DOLocalizedString(@"Background_Opacity") target:self set:defSetter get:defGetter detail:nil cell:PSStaticTextCell edit:nil];
         [_backgroundOpacitySpecifier setProperty:[DOBackgroundOpacityCell class] forKey:@"cellClass"];
         [_backgroundOpacitySpecifier setProperty:DOLocalizedString(@"Background_Opacity") forKey:@"title"];
-        [_backgroundOpacitySpecifier setProperty:@70 forKey:@"height"];
+        [_backgroundOpacitySpecifier setProperty:@104 forKey:@"height"];
         [_backgroundOpacitySpecifier setProperty:@"backgroundOpacity" forKey:@"key"];
         _backgroundOpacitySpecifier.identifier = @"backgroundOpacity";
         [specifiers addObject:_backgroundOpacitySpecifier];
@@ -438,6 +439,16 @@ typedef NS_ENUM(NSInteger, DOImagePickerPurpose) {
 
             if ([[DOPreferenceManager sharedManager] boolPreferenceValueForKey:@"customBootlogoEnabled" fallback:NO]) {
                 [specifiers addObject:_customBootlogoSpecifier];
+            }
+        }
+
+        // Senior friendly: give every row a comfortable height unless it already asked for one
+        for (PSSpecifier *specifier in specifiers) {
+            if (specifier.cellType == PSGroupCell) {
+                continue;
+            }
+            if ([specifier propertyForKey:@"height"] == nil) {
+                [specifier setProperty:[NSNumber numberWithDouble:UI_ROW_HEIGHT] forKey:@"height"];
             }
         }
 

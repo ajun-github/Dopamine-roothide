@@ -30,7 +30,7 @@
     if (chevron)
     {
         UIImage *chevronImage = [UIImage systemImageNamed:@"chevron.right"];
-        chevronImage = [chevronImage imageWithConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:16 weight:UIImageSymbolWeightRegular]];
+        chevronImage = [chevronImage imageWithConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:20 weight:UIImageSymbolWeightRegular]];
         UIImageView *chevronView = [[UIImageView alloc] initWithImage:chevronImage];
         chevronView.translatesAutoresizingMaskIntoConstraints = NO;
         chevronView.tintColor = [UIColor colorWithWhite:1 alpha:0.6];

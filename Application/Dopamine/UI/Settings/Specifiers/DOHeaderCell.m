@@ -15,7 +15,7 @@
     {
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setText:[specifier propertyForKey:@"title"]];
-        [titleLabel setFont:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium]];
+        [titleLabel setFont:[UIFont systemFontOfSize:21 weight:UIFontWeightSemibold]];
         [titleLabel setTextColor:[UIColor whiteColor]];
         titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -43,7 +43,7 @@
 
 - (CGFloat)preferredHeightForWidth:(CGFloat)width
 {
-	return 60;
+	return 74;
 }
 
 @end

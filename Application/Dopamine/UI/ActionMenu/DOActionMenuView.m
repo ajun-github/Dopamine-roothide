@@ -18,10 +18,7 @@
     {
         [self setDelegate:delegate];
         [self setActions:actions];
-        self.backgroundColor = [DOThemeManager menuColorWithAlpha:1.0];
-        self.layer.cornerRadius = 14;
-        self.layer.masksToBounds = YES;
-        self.layer.cornerCurve = kCACornerCurveContinuous;
+        [DOGlobalAppearance applyLiquidGlassToView:self cornerRadius:UI_GLASS_CORNER_RADIUS tintColor:[DOThemeManager menuColorWithAlpha:1.0]];
     }
     return self;
 }
