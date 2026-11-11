@@ -14,6 +14,7 @@
 		042479A52B66916B0082581B /* DOCreditsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042479732B66916B0082581B /* DOCreditsCell.m */; };
 		042479A62B66916B0082581B /* DOHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042479752B66916B0082581B /* DOHeaderCell.m */; };
 		042479A72B66916B0082581B /* DOButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042479772B66916B0082581B /* DOButtonCell.m */; };
+		A7F3C2D14B8E4A6F9C1D2E01 /* DOBackgroundOpacityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F3C2D14B8E4A6F9C1D2E03 /* DOBackgroundOpacityCell.m */; };
 		042479A82B66916B0082581B /* DOPSListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042479782B66916B0082581B /* DOPSListController.m */; };
 		042479A92B66916B0082581B /* DOModalBackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0424797C2B66916B0082581B /* DOModalBackAction.m */; };
 		042479AA2B66916B0082581B /* DOModalTransitionPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0424797D2B66916B0082581B /* DOModalTransitionPush.m */; };
@@ -401,6 +402,8 @@
 		042479752B66916B0082581B /* DOHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOHeaderCell.m; sourceTree = "<group>"; };
 		042479762B66916B0082581B /* DOCreditsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOCreditsCell.h; sourceTree = "<group>"; };
 		042479772B66916B0082581B /* DOButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOButtonCell.m; sourceTree = "<group>"; };
+		A7F3C2D14B8E4A6F9C1D2E02 /* DOBackgroundOpacityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOBackgroundOpacityCell.h; sourceTree = "<group>"; };
+		A7F3C2D14B8E4A6F9C1D2E03 /* DOBackgroundOpacityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOBackgroundOpacityCell.m; sourceTree = "<group>"; };
 		042479782B66916B0082581B /* DOPSListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOPSListController.m; sourceTree = "<group>"; };
 		0424797A2B66916B0082581B /* DOModalTransitionPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOModalTransitionPush.h; sourceTree = "<group>"; };
 		0424797B2B66916B0082581B /* DOModalTransitionScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOModalTransitionScale.h; sourceTree = "<group>"; };
@@ -903,6 +906,8 @@
 				042479732B66916B0082581B /* DOCreditsCell.m */,
 				042479742B66916B0082581B /* DOButtonCell.h */,
 				042479772B66916B0082581B /* DOButtonCell.m */,
+				A7F3C2D14B8E4A6F9C1D2E02 /* DOBackgroundOpacityCell.h */,
+				A7F3C2D14B8E4A6F9C1D2E03 /* DOBackgroundOpacityCell.m */,
 			);
 			path = Specifiers;
 			sourceTree = "<group>";
@@ -2301,6 +2306,7 @@
 				042479A82B66916B0082581B /* DOPSListController.m in Sources */,
 				042479B12B66916B0082581B /* DODoubleHelixIndicator.m in Sources */,
 				042479A72B66916B0082581B /* DOButtonCell.m in Sources */,
+				A7F3C2D14B8E4A6F9C1D2E01 /* DOBackgroundOpacityCell.m in Sources */,
 				042479B92B66916B0082581B /* DOGlobalAppearance.m in Sources */,
 				8C9E46292ACA1CC700B5456A /* UIImage+Blur.m in Sources */,
 				8C029F462B4DFD910071DE58 /* DOBootstrapper.m in Sources */,
@@ -3090,7 +3096,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dopamine/Info.plist;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Dopamine needs to access your photo library to support picking a boot logo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Dopamine needs to access your photo library to support picking a boot logo or a custom background image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -3128,7 +3134,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dopamine/Info.plist;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Dopamine needs to access your photo library to support picking a boot logo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Dopamine needs to access your photo library to support picking a boot logo or a custom background image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

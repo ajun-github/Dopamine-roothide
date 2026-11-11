@@ -20,8 +20,16 @@
 #import "DOSceneDelegate.h"
 #import "DOPSJetsamListItemsController.h"
 #import "DOButtonCell.h"
+#import "DOBackgroundOpacityCell.h"
+
+typedef NS_ENUM(NSInteger, DOImagePickerPurpose) {
+    DOImagePickerPurposeBootLogo,
+    DOImagePickerPurposeBackground,
+};
 
 @interface DOSettingsController ()
+
+@property (nonatomic) DOImagePickerPurpose imagePickerPurpose;
 
 @end
 
@@ -377,6 +385,31 @@
         [themeSpecifier setProperty:@"themeNames" forKey:@"titlesDataSource"];
         [specifiers addObject:themeSpecifier];
 
+        _customBackgroundEnabledSpecifier = [PSSpecifier preferenceSpecifierNamed:DOLocalizedString(@"Custom_Background_Image") target:self set:@selector(setCustomBackgroundEnabled:specifier:) get:defGetter detail:nil cell:PSSwitchCell edit:nil];
+        [_customBackgroundEnabledSpecifier setProperty:@YES forKey:@"enabled"];
+        [_customBackgroundEnabledSpecifier setProperty:@"customBackgroundEnabled" forKey:@"key"];
+        [_customBackgroundEnabledSpecifier setProperty:@NO forKey:@"default"];
+        _customBackgroundEnabledSpecifier.identifier = @"customBackgroundEnabled";
+        [specifiers addObject:_customBackgroundEnabledSpecifier];
+
+        _customBackgroundImageSpecifier = [PSSpecifier preferenceSpecifierNamed:DOLocalizedString(@"Select_Image") target:self set:defSetter get:defGetter detail:nil cell:PSButtonCell edit:nil];
+        _customBackgroundImageSpecifier.buttonAction = @selector(selectCustomBackgroundPressed);
+        [_customBackgroundImageSpecifier setProperty:@YES forKey:@"enabled"];
+        [_customBackgroundImageSpecifier setProperty:@"customBackgroundImage" forKey:@"key"];
+        _customBackgroundImageSpecifier.identifier = @"customBackgroundImage";
+
+        if ([[DOPreferenceManager sharedManager] boolPreferenceValueForKey:@"customBackgroundEnabled" fallback:NO]) {
+            [specifiers addObject:_customBackgroundImageSpecifier];
+        }
+
+        _backgroundOpacitySpecifier = [PSSpecifier preferenceSpecifierNamed:DOLocalizedString(@"Background_Opacity") target:self set:defSetter get:defGetter detail:nil cell:PSStaticTextCell edit:nil];
+        [_backgroundOpacitySpecifier setProperty:[DOBackgroundOpacityCell class] forKey:@"cellClass"];
+        [_backgroundOpacitySpecifier setProperty:DOLocalizedString(@"Background_Opacity") forKey:@"title"];
+        [_backgroundOpacitySpecifier setProperty:@70 forKey:@"height"];
+        [_backgroundOpacitySpecifier setProperty:@"backgroundOpacity" forKey:@"key"];
+        _backgroundOpacitySpecifier.identifier = @"backgroundOpacity";
+        [specifiers addObject:_backgroundOpacitySpecifier];
+
         PSSpecifier *bootlogoGropSpecifier = [PSSpecifier emptyGroupSpecifier];
         bootlogoGropSpecifier.name = DOLocalizedString(@"Section_Boot_Logo");
         [specifiers addObject:bootlogoGropSpecifier];
@@ -607,7 +640,37 @@
     }
 }
 
+- (void)setCustomBackgroundEnabled:(id)value specifier:(PSSpecifier *)specifier
+{
+    bool prevValueBool = ((NSNumber *)[self readPreferenceValue:specifier]).boolValue;
+    [self setPreferenceValue:value specifier:specifier];
+    bool valueBool = ((NSNumber *)value).boolValue;
+
+    if (prevValueBool != valueBool) {
+        if (valueBool) {
+            [self insertSpecifier:_customBackgroundImageSpecifier afterSpecifier:specifier animated:YES];
+        }
+        else {
+            [self removeSpecifier:_customBackgroundImageSpecifier animated:YES];
+        }
+    }
+
+    [[DOThemeManager sharedInstance] notifyBackgroundChanged];
+}
+
 - (void)selectCustomBootlogoPressed
+{
+    self.imagePickerPurpose = DOImagePickerPurposeBootLogo;
+    [self presentImagePicker];
+}
+
+- (void)selectCustomBackgroundPressed
+{
+    self.imagePickerPurpose = DOImagePickerPurposeBackground;
+    [self presentImagePicker];
+}
+
+- (void)presentImagePicker
 {
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted) {
@@ -616,7 +679,7 @@
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
             if (status == PHAuthorizationStatusAuthorized) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self selectCustomBootlogoPressed];
+                    [self presentImagePicker];
                 });
             }
         }];
@@ -629,12 +692,18 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-#pragma mark - Boot Logo Picker
+#pragma mark - Boot Logo / Background Picker
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     if (!chosenImage) {
         chosenImage = info[UIImagePickerControllerOriginalImage];
+    }
+
+    if (self.imagePickerPurpose == DOImagePickerPurposeBackground) {
+        [[DOThemeManager sharedInstance] saveCustomBackgroundImage:chosenImage];
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        return;
     }
 
     // Force correct the orientation

@@ -57,6 +57,8 @@
 /*Section_Jailbreak_Settings*/
 /*Section_Actions*/
 /*Section_Customization*/
+"Custom_Background_Image" = "自訂背景圖片";
+"Background_Opacity" = "背景透明度";
 /*Section_Exploits*/
 
 // Settings Alerts
