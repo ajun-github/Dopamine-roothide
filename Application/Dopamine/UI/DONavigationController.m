@@ -101,7 +101,7 @@
     [self updateBackgroundAlphaAnimated:NO];
 }
 
-- (void)setBackgroundDimmed:(BOOL)dimmed
+- (void)updateBackgroundDimmed:(BOOL)dimmed
 {
     self.backgroundDimmed = dimmed;
     [self updateBackgroundAlphaAnimated:YES];
@@ -124,7 +124,7 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [self setBackgroundDimmed:![viewController isKindOfClass:[DOMainViewController class]]];
+    [self updateBackgroundDimmed:![viewController isKindOfClass:[DOMainViewController class]]];
     [self.backAction setIgnoreFrame:[self _frameForViewController:viewController]];
 }
 
